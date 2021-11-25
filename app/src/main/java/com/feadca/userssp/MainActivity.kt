@@ -2,13 +2,14 @@ package com.feadca.userssp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.feadca.userssp.adapters.UserAdapter
 import com.feadca.userssp.databinding.ActivityMainBinding
 import com.feadca.userssp.model.User
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), OnClickListener {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var userAdapter: UserAdapter
@@ -20,12 +21,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
-        userAdapter = UserAdapter(getUsers()) // Inicializamos el adapter
+        userAdapter = UserAdapter(getUsers(), this) // Inicializamos el adapter
         linearLayoutManager = LinearLayoutManager(this) // Enviamos el contexto actual
 
 
         // RecyclerView que tiene el XML del MainActivity
         binding.recyclerView.apply{
+            setHasFixedSize(true) // Las vistas siempre medirán lo mismo, optimizamos el rendimiento
             layoutManager = linearLayoutManager
             adapter = userAdapter
         }
@@ -56,5 +58,9 @@ class MainActivity : AppCompatActivity() {
         users.add(user2)
 
         return users
+    }
+
+    override fun onClick(user: User, position: Int) {
+        Toast.makeText(this, "$position: ${user.getFullName()}", Toast.LENGTH_SHORT).show()
     }
 }
