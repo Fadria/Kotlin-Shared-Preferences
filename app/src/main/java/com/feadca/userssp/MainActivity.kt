@@ -28,6 +28,9 @@ class MainActivity : AppCompatActivity(), OnClickListener {
         val isFirstTime = preferences.getBoolean(getString(R.string.sp_first_time), true)
         Log.i("SPFirstTime", isFirstTime.toString()) // Log del valor de SP
 
+        // Los datos se almacenan en forma de diccionario, es decir, clave => valor
+        preferences.edit().putBoolean(getString(R.string.sp_first_time), false).commit()
+
         userAdapter = UserAdapter(getUsers(), this) // Inicializamos el adapter
         linearLayoutManager = LinearLayoutManager(this) // Enviamos el contexto actual
 
