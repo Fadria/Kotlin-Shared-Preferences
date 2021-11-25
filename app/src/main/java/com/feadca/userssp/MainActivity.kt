@@ -1,6 +1,7 @@
 package com.feadca.userssp
 
 import android.content.Context
+import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.feadca.userssp.adapters.UserAdapter
 import com.feadca.userssp.databinding.ActivityMainBinding
 import com.feadca.userssp.model.User
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class MainActivity : AppCompatActivity(), OnClickListener {
 
@@ -28,8 +30,17 @@ class MainActivity : AppCompatActivity(), OnClickListener {
         val isFirstTime = preferences.getBoolean(getString(R.string.sp_first_time), true)
         Log.i("SPFirstTime", isFirstTime.toString()) // Log del valor de SP
 
-        // Los datos se almacenan en forma de diccionario, es decir, clave => valor
-        preferences.edit().putBoolean(getString(R.string.sp_first_time), false).commit()
+        if(isFirstTime)
+        {
+            MaterialAlertDialogBuilder(this)
+                .setTitle(R.string.dialog_title)
+                .setPositiveButton(R.string.dialog_confirm) { dialogInterface, i ->
+                    // Los datos se almacenan en forma de diccionario, es decir, clave => valor
+                    preferences.edit().putBoolean(getString(R.string.sp_first_time), false).commit()
+                }
+                .setNegativeButton(R.string.dialog_cancel, null)
+                .show()
+        }
 
         userAdapter = UserAdapter(getUsers(), this) // Inicializamos el adapter
         linearLayoutManager = LinearLayoutManager(this) // Enviamos el contexto actual
