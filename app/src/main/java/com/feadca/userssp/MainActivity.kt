@@ -41,6 +41,7 @@ class MainActivity : AppCompatActivity(), OnClickListener {
             MaterialAlertDialogBuilder(this)
                 .setTitle(R.string.dialog_title)
                 .setView(dialogView)
+                .setNeutralButton(R.string.dialog_neutral, null)
                 .setCancelable(false) // No se puede cerrar el diálogo por ningún motivo, a no ser que nos registremos
                 .setPositiveButton(R.string.dialog_confirm) { dialogInterface, i ->
                     // Nombre de usuario indicado por el usuario en el diálogo
