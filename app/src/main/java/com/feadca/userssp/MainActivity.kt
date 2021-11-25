@@ -35,9 +35,23 @@ class MainActivity : AppCompatActivity() {
     {
         val users = mutableListOf<User>()
 
-        val user1 = User(1, "Antonio", "Adria", "")
-        val user2 = User(2, "Federico", "Adria", "")
+        val user1 = User(1, "Federico", "Adria", "https://media-exp1.licdn.com/dms/image/C5603AQFkkkMUS03b-g/profile-displayphoto-shrink_100_100/0/1519306801283?e=1643241600&v=beta&t=5H2HPHbtWyHipjarXyXNCZaQyJtZD4TIzbR1uCxq3qU")
+        val user2 = User(2, "Antonio", "Adria", "https://cdn.pixabay.com/photo/2016/11/13/10/06/budgie-1820620_1280.jpg")
 
+        users.add(user1)
+        users.add(user2)
+        users.add(user1)
+        users.add(user2)
+        users.add(user1)
+        users.add(user2)
+        users.add(user1)
+        users.add(user2)
+        users.add(user1)
+        users.add(user2)
+        users.add(user1)
+        users.add(user2)
+        users.add(user1)
+        users.add(user2)
         users.add(user1)
         users.add(user2)
 

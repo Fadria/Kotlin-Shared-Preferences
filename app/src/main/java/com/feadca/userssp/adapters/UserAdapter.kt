@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.feadca.userssp.R
 import com.feadca.userssp.databinding.ItemUserBinding
 import com.feadca.userssp.model.User
@@ -28,8 +30,14 @@ class UserAdapter(private val users: List<User>): RecyclerView.Adapter<UserAdapt
 
         with(holder)
         {
-            binding.tvOrder.text = user.id.toString()
+            binding.tvOrder.text = (position + 1).toString()
             binding.tvName.text = user.name
+            Glide.with(context) // Librería para cargar imágenes de internet
+                .load(user.url) // Cargamos la imagen del usuario
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .centerCrop()
+                .circleCrop() // Imagen circular
+                .into(binding.imgPhoto) // Donde volcamos la imagen
         }
     }
 
