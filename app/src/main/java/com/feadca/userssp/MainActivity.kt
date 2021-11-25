@@ -1,7 +1,9 @@
 package com.feadca.userssp
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,6 +22,11 @@ class MainActivity : AppCompatActivity(), OnClickListener {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val preferences = getPreferences(Context.MODE_PRIVATE) // Almacenamiento interno
+
+        // Obtenemos el valor del SP o el valor true, si este no existe
+        val isFirstTime = preferences.getBoolean(getString(R.string.sp_first_time), true)
+        Log.i("SPFirstTime", isFirstTime.toString()) // Log del valor de SP
 
         userAdapter = UserAdapter(getUsers(), this) // Inicializamos el adapter
         linearLayoutManager = LinearLayoutManager(this) // Enviamos el contexto actual
