@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.feadca.userssp.OnClickListener
 import com.feadca.userssp.R
+import com.feadca.userssp.databinding.ItemUserAltBinding
 import com.feadca.userssp.databinding.ItemUserBinding
 import com.feadca.userssp.model.User
 
@@ -21,7 +22,7 @@ class UserAdapter(private val users: List<User>, private val listener:OnClickLis
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         context = parent.context
 
-        val view = LayoutInflater.from(context).inflate(R.layout.item_user, parent, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.item_user_alt, parent, false)
 
         return ViewHolder(view)
     }
@@ -51,7 +52,7 @@ class UserAdapter(private val users: List<User>, private val listener:OnClickLis
     // Esta clase contiene las viastas de cada objeto en item_user.xml
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view)
     {
-        val binding = ItemUserBinding.bind(view)
+        val binding = ItemUserAltBinding.bind(view)
 
         fun setListener(user: User, position: Int)
         {
