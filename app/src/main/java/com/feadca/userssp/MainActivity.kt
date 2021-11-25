@@ -12,6 +12,7 @@ import com.feadca.userssp.adapters.UserAdapter
 import com.feadca.userssp.databinding.ActivityMainBinding
 import com.feadca.userssp.model.User
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.textfield.TextInputEditText
 
 class MainActivity : AppCompatActivity(), OnClickListener {
 
@@ -28,17 +29,32 @@ class MainActivity : AppCompatActivity(), OnClickListener {
 
         // Obtenemos el valor del SP o el valor true, si este no existe
         val isFirstTime = preferences.getBoolean(getString(R.string.sp_first_time), true)
-        Log.i("SPFirstTime", isFirstTime.toString()) // Log del valor de SP
+        val storedUsername = preferences.getString(getString(R.string.sp_username), "No user")
+        Log.i("SPLog", isFirstTime.toString()) // Log del valor de SP
+        Log.i("SPLog", storedUsername.toString()) // Log del valor de SP
 
         if(isFirstTime)
         {
+            // Vista personalizada para nuestro diálogo
+            val dialogView = layoutInflater.inflate(R.layout.dialog_register, null)
+
             MaterialAlertDialogBuilder(this)
                 .setTitle(R.string.dialog_title)
+                .setView(dialogView)
+                .setCancelable(false) // No se puede cerrar el diálogo por ningún motivo, a no ser que nos registremos
                 .setPositiveButton(R.string.dialog_confirm) { dialogInterface, i ->
-                    // Los datos se almacenan en forma de diccionario, es decir, clave => valor
-                    preferences.edit().putBoolean(getString(R.string.sp_first_time), false).commit()
+                    // Nombre de usuario indicado por el usuario en el diálogo
+                    val username = dialogView.findViewById<TextInputEditText>(R.id.etUsername).text.toString()
+                    with(preferences.edit())
+                    {
+                        // Los datos se almacenan en forma de diccionario, es decir, clave => valor
+                        putBoolean(getString(R.string.sp_first_time), false).commit()
+                        putString(getString(R.string.sp_username), username)
+                            .apply() // La inserción se ejecuta en segundo plano para no bloquear la actividad
+                    }
                 }
-                .setNegativeButton(R.string.dialog_cancel, null)
+                // Lo comentamos para que nuestro diálogo nunca se pueda cancelar
+                //.setNegativeButton(R.string.dialog_cancel, null)
                 .show()
         }
 
