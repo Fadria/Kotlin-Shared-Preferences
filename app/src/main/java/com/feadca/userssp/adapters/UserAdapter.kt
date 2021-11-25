@@ -31,7 +31,7 @@ class UserAdapter(private val users: List<User>): RecyclerView.Adapter<UserAdapt
         with(holder)
         {
             binding.tvOrder.text = (position + 1).toString()
-            binding.tvName.text = user.name
+            binding.tvName.text = user.getFullName()
             Glide.with(context) // Librería para cargar imágenes de internet
                 .load(user.url) // Cargamos la imagen del usuario
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
