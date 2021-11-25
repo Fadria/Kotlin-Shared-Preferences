@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity(), OnClickListener {
         Log.i("SPLog", isFirstTime.toString()) // Log del valor de SP
         Log.i("SPLog", storedUsername.toString()) // Log del valor de SP
 
-        if(isFirstTime)
+        if(isFirstTime) // El usuario no se ha registrado
         {
             // Vista personalizada para nuestro diálogo
             val dialogView = layoutInflater.inflate(R.layout.dialog_register, null)
@@ -52,10 +52,17 @@ class MainActivity : AppCompatActivity(), OnClickListener {
                         putString(getString(R.string.sp_username), username)
                             .apply() // La inserción se ejecuta en segundo plano para no bloquear la actividad
                     }
+
+                    // Informamos al usuario de que se ha registrado correctamente
+                    Toast.makeText(this, R.string.register_success, Toast.LENGTH_LONG).show()
                 }
                 // Lo comentamos para que nuestro diálogo nunca se pueda cancelar
                 //.setNegativeButton(R.string.dialog_cancel, null)
                 .show()
+        }else{
+            // Obtenemos el nombre del usuario registrado y lo mostramos cada vez que abra la app
+            val username = preferences.getString(getString(R.string.sp_username), getString(R.string.hint_username))
+            Toast.makeText(this, "Bienvenido de nuevo, $username", Toast.LENGTH_LONG).show()
         }
 
         userAdapter = UserAdapter(getUsers(), this) // Inicializamos el adapter
